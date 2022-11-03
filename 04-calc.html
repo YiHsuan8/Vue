@@ -9,13 +9,12 @@
   <body>
     <div id="app">
       <button v-for="num in 9" :key="num" @click="keyin = num">{{num}}</button>
-      <button>0</button>
+      <button @click="keyin = 0">0</button>
       <button @click="reduce">-</button>
       <button @click="add">+</button>
       <button @click="calc">=</button>
       <button @click="clear">c</button>
       <div>step:{{step}}</div>
-      <h1>result:{{result}}</h1>
     </div>
 
     <script src="https://unpkg.com/vue@next"></script>
@@ -25,7 +24,6 @@
         data() {
           return {
             step: "",
-            keyin: 0,
             result: 0,
           };
         },
@@ -33,13 +31,6 @@
           add() {
             this.result += this.keyin;
           },
-          reduce() {
-            this.result -= this.keyin;
-          },
-          calc() {
-            this.result = this.keyin;
-          },
-          clear() {},
         },
       }).mount("#app");
     </script>
