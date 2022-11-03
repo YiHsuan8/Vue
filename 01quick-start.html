@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue2</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 雙花括號是模板語言 -->
+      <h1>{{ typeof count}}</h1>
+      <hr />
+      <p>{{name}}想吃{{food}}</p>
+      <div>{{talk ? '愛講話':'害害'}}</div>
+      <div>{{array.length}}</div>
+      <div>{{obj}}</div>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <script>
+      //新增一個應用application 建立Vue實體(instance)
+      Vue.createApp({
+        data() {
+          return {
+            count: 2,
+            name: 1,
+            food: 1,
+            talk: true,
+            array: [1, 2, 3],
+            obj: { test: "123" },
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
