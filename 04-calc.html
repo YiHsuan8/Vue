@@ -8,13 +8,23 @@
   </head>
   <body>
     <div id="app">
-      <button v-for="num in 9" :key="num" @click="keyin = num">{{num}}</button>
-      <button @click="keyin = 0">0</button>
-      <button @click="reduce">-</button>
-      <button @click="add">+</button>
-      <button @click="calc">=</button>
-      <button @click="clear">c</button>
-      <div>step:{{step}}</div>
+      <input class="display" v-model="total" />
+      <button class="operator" @click="divide">/</button>
+      <button class="operator" @click="reduce">-</button>
+      <button class="operator" @click="multiply">*</button>
+      <button class="operator" @click="add">+</button>
+      <button class="operator" @click="calc">=</button>
+      <button class="operator" @click="clear">c</button>
+      <button @click="append('7')">7</button>
+      <button @click="append('8')">8</button>
+      <button @click="append('9')">9</button>
+      <button @click="append('4')">4</button>
+      <button @click="append('5')">5</button>
+      <button @click="append('6')">6</button>
+      <button @click="append('1')">1</button>
+      <button @click="append('2')">2</button>
+      <button @click="append('3')">3</button>
+      <button @click="append('0')">0</button>
     </div>
 
     <script src="https://unpkg.com/vue@next"></script>
@@ -23,16 +33,70 @@
       Vue.createApp({
         data() {
           return {
-            step: "",
-            result: 0,
+            total: "",
+            operator: null,
+            operatorClicked: false,
+            previous: "",
           };
         },
         methods: {
+          append(number) {
+            if (this.operatorClicked) this.total = "";
+            this.operatorClicked = false;
+            this.total =
+              this.total === "0" ? `${number}` : `${this.total}${number}`;
+          },
+
+          setPrevious() {
+            this.previous = this.total;
+            this.operatorClicked = true;
+          },
+
           add() {
-            this.result += this.keyin;
+            this.operator = (a, b) => a + b;
+            this.setPrevious();
+          },
+          reduce() {
+            this.operator = (a, b) => a - b;
+            this.setPrevious();
+          },
+          multiply() {
+            this.operator = (a, b) => a * b;
+            this.setPrevious();
+          },
+          divide() {
+            this.operator = (a, b) => a / b;
+            this.setPrevious();
+          },
+
+          calc() {
+            this.total = `${this.operator(
+              parseFloat(this.previous),
+              parseFloat(this.total)
+            )}`;
+            this.operator = null;
+            this.operatorClicked = false;
+          },
+          clear() {
+            this.total = "";
+            this.operator = null;
+            this.operatorClicked = false;
           },
         },
       }).mount("#app");
     </script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      #app {
+        width: 160px;
+        margin: 0 auto;
+      }
+
+      #app button {
+        font-size: 40px;
+      }
+    </style>
   </body>
 </html>
