@@ -17,20 +17,23 @@
 
       <input
         type="text"
-        v-model="plusValue"
-        @keyup.enter="add()"
         placeholder="事情那麼多還不記下來"
+        @keyup.enter="add"
+        v-model="plusValue"
       />
+      <button @click="add">送出</button>
 
       <div v-if="list.length != 0">
-        total : {{ list.length }}todo
+        total : {{ list.length }} todo
         <button @click="clear">不想幹了?</button>
       </div>
     </div>
   </body>
 
   <script src="https://unpkg.com/vue@next"></script>
+
   <script>
+    // Vue.config.productionTip = false;
     const app = Vue.createApp({
       data() {
         return {
@@ -43,13 +46,13 @@
           this.list.plus(this.plusValue);
           this.plusValue = "";
         },
-        del() {
+        del(index) {
           this.list.splice(index, 1);
         },
         clear() {
           this.list = [];
         },
       },
-    });
+    }).mount("#app");
   </script>
 </html>
