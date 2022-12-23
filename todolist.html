@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>todolist</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="text">
+        <p v-for="(item, index) in list">
+          {{ index + 1 }}.{{ item }}
+          <button @click="del(index)">88</button>
+        </p>
+      </div>
+
+      <input
+        type="text"
+        v-model="plusValue"
+        @keyup.enter="add()"
+        placeholder="事情那麼多還不記下來"
+      />
+
+      <div v-if="list.length != 0">
+        total : {{ list.length }}todo
+        <button @click="clear">不想幹了?</button>
+      </div>
+    </div>
+  </body>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          list: ["吃飯", "睡覺", "打東東(所以東東是誰?)"],
+          plusValue: "",
+        };
+      },
+      methods: {
+        add() {
+          this.list.plus(this.plusValue);
+          this.plusValue = "";
+        },
+        del() {
+          this.list.splice(index, 1);
+        },
+        clear() {
+          this.list = [];
+        },
+      },
+    });
+  </script>
+</html>
